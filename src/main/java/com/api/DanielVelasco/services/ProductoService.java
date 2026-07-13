@@ -8,8 +8,8 @@ import com.api.DanielVelasco.dto.ProductoRequestDTO;
 import com.api.DanielVelasco.dto.ProductoResponseDTO;
 import com.api.DanielVelasco.entities.Categoria;
 import com.api.DanielVelasco.entities.Producto;
-import com.api.DanielVelasco.exceptions.CategoriaNoEncontradaException;
 import com.api.DanielVelasco.exceptions.ProductoNoEncontradoException;
+import com.api.DanielVelasco.exceptions.ResourceNotFoundException;
 import com.api.DanielVelasco.repositories.CategoriaRepository;
 import com.api.DanielVelasco.repositories.ProductoRepository;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class ProductoService {
         //Instanciamos el prodcuto por ID y se almacena en la variable producto
         Producto producto = productoRepository.findById(id)
                 //Creamos el mensaje en caso de que no exista el producto
-                .orElseThrow(() -> new ProductoNoEncontradoException("Producto no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
 
         //Se hace el Objeto del dto
         ProductoResponseDTO dto = new ProductoResponseDTO();
@@ -67,7 +67,7 @@ public class ProductoService {
     public ProductoResponseDTO crear(ProductoRequestDTO producto) {
         // Buscar la categoría
         Categoria categoria = categoriaRepository.findById(producto.getCategoriaId())
-                .orElseThrow(() -> new CategoriaNoEncontradaException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Categoría no encontrada con id: " + producto.getCategoriaId()));
         //CReación de la Entidad
         Producto productonuevo = new Producto();

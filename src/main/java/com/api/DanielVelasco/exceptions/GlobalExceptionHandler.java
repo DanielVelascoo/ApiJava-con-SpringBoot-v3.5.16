@@ -13,14 +13,16 @@ import java.util.Map;
 // Evita repetir bloques try-catch en todos los Controllers y centraliza el manejo de excepciones
 public class GlobalExceptionHandler {
     //La anotacion sirve para decir que si el método existe, lo ejecute.
-    @ExceptionHandler(ProductoNoEncontradoException.class)
-    public ResponseEntity<String> manejarProductoNoEncontrado(ProductoNoEncontradoException ex){
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(ex.getMessage());
-    }
-    @ExceptionHandler(CategoriaNoEncontradaException.class)
-    public ResponseEntity<String> manejarCategoriaNoEncontrada(CategoriaNoEncontradaException ex){
+
+//    @ExceptionHandler(ProductoNoEncontradoException.class)
+//    public ResponseEntity<String> manejarProductoNoEncontrado(ProductoNoEncontradoException ex){
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .body(ex.getMessage());
+//    } Para este caso este método lo guardo, porque con el aprendí que puedo tener excepciones personalizadas
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> RecursoNoEncontrado(ResourceNotFoundException ex){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
