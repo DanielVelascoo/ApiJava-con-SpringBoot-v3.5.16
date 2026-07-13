@@ -18,12 +18,12 @@ public class CategoriaController {
     private final CategoriaService categoriaService;
 
     @GetMapping
-    public List<CategoriaResponseDTO> obtenerProductos() {
+    public List<CategoriaResponseDTO> obtenerCategorias() {
         return categoriaService.obtener();
     }
 
     @PostMapping
-    public CategoriaResponseDTO crearProducto(@Valid @RequestBody CategoriaRequestDTO categoria) {
+    public CategoriaResponseDTO crearCategoria(@Valid @RequestBody CategoriaRequestDTO categoria) {
         return categoriaService.crear(categoria);
     }
 
