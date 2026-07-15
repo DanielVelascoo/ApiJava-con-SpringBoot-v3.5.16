@@ -3,6 +3,7 @@ package com.api.DanielVelasco.services;
 import com.api.DanielVelasco.dto.CategoriaRequestDTO;
 import com.api.DanielVelasco.dto.CategoriaResponseDTO;
 import com.api.DanielVelasco.entities.Categoria;
+import com.api.DanielVelasco.exceptions.ResourceNotFoundException;
 import com.api.DanielVelasco.repositories.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,9 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
 
     public List<CategoriaResponseDTO> obtener() {
-    //Creación de la Lista en productos
+    //Creación de la Lista de categorias
     List<Categoria> categorias = categoriaRepository.findAll();
-    //Creación del Array todo queda en la variable de respeusta
+    //Creación del Array todo queda en la variable de respuesta
     List<CategoriaResponseDTO> respuesta = new ArrayList<>();
     //Recorremos o iteramos los objetos para llenar el Array
     for (Categoria categoria : categorias) {
@@ -51,5 +52,14 @@ public class CategoriaService {
         respuesta.setNombre(categoriaGuardada.getNombre());
 
         return respuesta;
+    }
+
+    public String borrarCategoria(Long id){
+        Categoria categoria = categoriaRepository.findById(id)
+                //Creamos el mensaje en caso de que no exista la categoria
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
+        categoriaRepository.delete(categoria);
+        //Retornamos el mensaje de exito
+        return "Categoria eliminada correctamente";
     }
 }
