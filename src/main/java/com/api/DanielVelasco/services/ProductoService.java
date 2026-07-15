@@ -93,7 +93,7 @@ public class ProductoService {
 
         Producto producto = productoRepository.findById(id)
                 //Creamos el mensaje en caso de que no exista el producto
-                .orElseThrow(() -> new ProductoNoEncontradoException("Producto no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
         //Seteamos los datos enviados para actualizar
         producto.setNombre(detalleProducto.getNombre());
         producto.setPrecio(detalleProducto.getPrecio());
@@ -111,7 +111,7 @@ public class ProductoService {
 
         Producto producto = productoRepository.findById(id)
                 //Creamos el mensaje en caso de que no exista el producto
-                .orElseThrow(() -> new ProductoNoEncontradoException("Producto no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
         //Eliminamos el prdocuto y pasamos el producto erncontrado
         productoRepository.delete(producto);
         //Retornamos el mensaje de exito
