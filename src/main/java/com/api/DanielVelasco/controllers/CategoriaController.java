@@ -27,4 +27,9 @@ public class CategoriaController {
         return categoriaService.crear(categoria);
     }
 
+    @DeleteMapping
+    public String eliminarCategoria(@PathVariable Long id){
+        return categoriaService.borrarCategoria(id);
+    }
+
 }
