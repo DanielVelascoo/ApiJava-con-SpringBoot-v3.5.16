@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class Factura {
     //Creamos los atributos de esta clase Entidad, para este caso sería los campos de la tabla de nuestra BD
     private Long id; //Utilizamos long por si en algun momento son demasiados ID
     private BigDecimal total;
+    @CreationTimestamp
     @Column(name = "fecha_creacion", insertable = false, updatable = false)
     private LocalDateTime fechaCreacion;
     @ManyToOne

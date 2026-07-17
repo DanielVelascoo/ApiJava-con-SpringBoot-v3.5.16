@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController // Hacemos la anotación para indicar a Spring que es un controlador
-@RequestMapping("/clientes") // Anotacion de mapeo de rutas, define la ruta base del controlador.
+@RequestMapping("/facturas") // Anotacion de mapeo de rutas, define la ruta base del controlador.
 @RequiredArgsConstructor // Las inyecciones con Autowired sirven pero es mejor hacer un constructor
 // para este caso existe LOMBOK una dependencia que hace la creacion de estos constructores
 public class FacturaController {
