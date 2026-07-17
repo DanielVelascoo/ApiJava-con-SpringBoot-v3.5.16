@@ -78,32 +78,33 @@ public class ClienteService {
         return respuesta;
     }
 
-//    public ProductoResponseDTO update(Long id, ProductoRequestDTO detalleProducto) {
-//
-//        Producto producto = productoRepository.findById(id)
-//                //Creamos el mensaje en caso de que no exista el producto
-//                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
-//        //Seteamos los datos enviados para actualizar
-//        producto.setNombre(detalleProducto.getNombre());
-//        producto.setPrecio(detalleProducto.getPrecio());
-//        //Guardamos los datos
-//        productoRepository.save(producto);
-//        //Llenamos el dto
-//        ProductoResponseDTO dto = new ProductoResponseDTO();
-//        dto.setId(producto.getId());
-//        dto.setNombre(producto.getNombre());
-//        //Retornamos la respuesta
-//        return dto;
-//    }
-//
-//    public String borrarProducto(Long id) {
-//
-//        Producto producto = productoRepository.findById(id)
-//                //Creamos el mensaje en caso de que no exista el producto
-//                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
-//        //Eliminamos el prdocuto y pasamos el producto erncontrado
-//        productoRepository.delete(producto);
-//        //Retornamos el mensaje de exito
-//        return "Producto eliminado correctamente";
-//    }
+    public ClienteResponseDTO update(Long id, ClienteRequestDTO detalleCliente) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                //Creamos el mensaje en caso de que no exista el producto
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+        //Seteamos los datos enviados para actualizar
+        cliente.setNombre(detalleCliente.getNombre());
+        cliente.setCelular(detalleCliente.getCelular());
+        //Guardamos los datos
+        clienteRepository.save(cliente);
+        //Llenamos el dto
+        ClienteResponseDTO dto = new ClienteResponseDTO();
+        dto.setId(cliente.getId());
+        dto.setNombre(cliente.getNombre());
+        dto.setCelular(cliente.getCelular());
+        //Retornamos la respuesta
+        return dto;
+    }
+
+    public String borrarCliente(Long id) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                //Creamos el mensaje en caso de que no exista el producto
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+        //Eliminamos el prdocuto y pasamos el producto erncontrado
+        clienteRepository.delete(cliente);
+        //Retornamos el mensaje de exito
+        return "Cliente eliminado correctamente";
+    }
 }

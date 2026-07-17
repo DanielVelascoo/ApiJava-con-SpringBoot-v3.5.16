@@ -33,16 +33,16 @@ public class ClienteController {
         return clienteService.crear(cliente);
     }
 
-//    @PutMapping("/{id}")
-//    public ProductoResponseDTO actualizarProducto(
-//            @PathVariable Long id,
-//            @RequestBody ProductoRequestDTO detalleProducto) {
-//
-//        return clienteService.update(id, detalleProducto);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public String borrarProducto(@PathVariable Long id) {
-//        return clienteService.borrarProducto(id);
-//    }
+    @PutMapping("/{id}")
+    public ClienteResponseDTO actualizarCliente(
+            @PathVariable Long id,
+            @RequestBody ClienteRequestDTO detalleCliente) {
+
+        return clienteService.update(id, detalleCliente);
+    }
+
+    @DeleteMapping("/{id}")
+    public String eliminarCliente(@PathVariable Long id) {
+        return clienteService.borrarCliente(id);
+    }
 }
