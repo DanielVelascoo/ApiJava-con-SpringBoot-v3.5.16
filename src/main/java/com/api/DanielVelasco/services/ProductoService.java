@@ -63,6 +63,23 @@ public class ProductoService {
 
     }
 
+    public List<ProductoResponseDTO> buscarPorCategoria(Long categoriaId) {
+        List<Producto> productos = productoRepository.findByCategoriaId(categoriaId);
+        if (productos.isEmpty()) {
+            throw new ResourceNotFoundException("Categoria no encontrada");
+        }else {
+            return productos.stream()
+                    .map(producto -> new ProductoResponseDTO(
+                            producto.getId(),
+                            producto.getNombre(),
+                            producto.getCategoria().getId(),
+                            producto.getCategoria().getNombre()
+                    ))
+                    .toList();
+        }
+
+    }
+
     public ProductoResponseDTO crear(ProductoRequestDTO producto) {
         // Buscar la categoría
         Categoria categoria = categoriaRepository.findById(producto.getCategoriaId())
@@ -76,7 +93,7 @@ public class ProductoService {
         productonuevo.setDescripcion(producto.getDescripcion());
         productonuevo.setPrecio(producto.getPrecio());
         productonuevo.setStock(producto.getStock());
-
+        productonuevo.setCategoria(categoria);
         //Guardar
         Producto productoGuardado = productoRepository.save(productonuevo);
 
@@ -84,7 +101,6 @@ public class ProductoService {
         ProductoResponseDTO respuesta = new ProductoResponseDTO();
         respuesta.setId(productoGuardado.getId());
         respuesta.setNombre(productoGuardado.getNombre());
-
         return respuesta;
     }
 

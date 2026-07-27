@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.api.DanielVelasco.dto.ProductoRequestDTO;
 import com.api.DanielVelasco.dto.ProductoResponseDTO;
+import com.api.DanielVelasco.entities.Producto;
 import com.api.DanielVelasco.services.ProductoService;
 
 import jakarta.validation.Valid;
@@ -37,6 +38,11 @@ public class ProductoController {
     @GetMapping("/{id}")
     public ProductoResponseDTO obtenerProducto(@PathVariable Long id) {
         return productoService.obtenerProductoById(id);
+    }
+
+    @GetMapping("/categoria/{id}")
+    public List<ProductoResponseDTO> obtenerPorCategoria(@PathVariable Long id) {
+        return productoService.buscarPorCategoria(id);
     }
 
     @PostMapping
