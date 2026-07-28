@@ -1,17 +1,20 @@
 package com.api.DanielVelasco.services;
 
-import com.api.DanielVelasco.dto.ClienteRequestDTO;
-import com.api.DanielVelasco.dto.ClienteResponseDTO;
+import com.api.DanielVelasco.dto.DetalleFacturaRequestDTO;
+import com.api.DanielVelasco.dto.DetalleFacturaResponseDTO;
 import com.api.DanielVelasco.dto.FacturaRequestDTO;
 import com.api.DanielVelasco.dto.FacturaResponseDTO;
 import com.api.DanielVelasco.entities.Cliente;
+import com.api.DanielVelasco.entities.DetalleFactura;
 import com.api.DanielVelasco.entities.Factura;
 import com.api.DanielVelasco.exceptions.ResourceNotFoundException;
 import com.api.DanielVelasco.repositories.ClienteRepository;
 import com.api.DanielVelasco.repositories.FacturaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class FacturaService {
 
     private final FacturaRepository facturaRepository;
     private final ClienteRepository clienteRepository;
+    private final DetalleFacturaService detalleFacturaService;
 
     public List<FacturaResponseDTO> obtener() {
         //Creación de la Lista en facturas
@@ -58,23 +62,54 @@ public class FacturaService {
         dto.setNombreCliente(factura.getCliente().getNombre());
         dto.setFechaCreacion(factura.getFechaCreacion());
         dto.setTotal(factura.getTotal());
+        List<DetalleFacturaResponseDTO> detallesResponse = factura.getDetalles()
+                .stream()
+                .map(detalle -> {
+                    DetalleFacturaResponseDTO deto = new DetalleFacturaResponseDTO();
+                    deto.setId(detalle.getId());
+                    deto.setProductoId(detalle.getProducto().getId());
+                    deto.setNombreProducto(detalle.getProducto().getNombre());
+                    deto.setCantidad(detalle.getCantidad());
+                    deto.setPrecioUnitario(detalle.getPrecioUnitario());
+                    deto.setSubtotal(detalle.getSubtotal());
+                    return deto;
+
+                })
+                .toList();
+        dto.setDetalles(detallesResponse);
         //Se retorna el dto para mostrar los datos
         return dto;
     }
 
+    @Transactional
     public FacturaResponseDTO crear(FacturaRequestDTO factura) {
-        //Creación de la Entidad
-        Factura facturaNueava = new Factura();
+       //Crear Objeto
+        Factura facturaNueva = new Factura();
 
-        facturaNueava.setTotal(factura.getTotal());
         //Primero hago la busqueda si el cliente existe...
         Cliente cliente = clienteRepository.findById(factura.getClienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
         //Luego lo Seteamos al momento de crear la factura
-        facturaNueava.setCliente(cliente);
+        facturaNueva.setCliente(cliente);
 
+        BigDecimal total = BigDecimal.ZERO;
+
+        List<DetalleFactura> detalles = new ArrayList<>();
+        for (DetalleFacturaRequestDTO detalleRequest : factura.getDetalles()) {
+
+            DetalleFactura detalle = detalleFacturaService.crearDetalle(detalleRequest);
+
+            detalle.setFactura(facturaNueva);
+
+            detalles.add(detalle);
+
+            total = total.add(detalle.getSubtotal());
+        }
+
+        facturaNueva.setDetalles(detalles);
+        facturaNueva.setTotal(total);
         //Guardar
-        Factura facturaGuardada = facturaRepository.save(facturaNueava);
+        Factura facturaGuardada = facturaRepository.save(facturaNueva);
 
         //Creación de la respuesta
         FacturaResponseDTO respuesta = new FacturaResponseDTO();
@@ -83,6 +118,23 @@ public class FacturaService {
         respuesta.setNombreCliente(facturaGuardada.getCliente().getNombre());
         respuesta.setFechaCreacion(facturaGuardada.getFechaCreacion());
         respuesta.setTotal(facturaGuardada.getTotal());
+
+        List<DetalleFacturaResponseDTO> detallesResponse = facturaGuardada.getDetalles()
+                .stream()
+                .map(detalle -> {
+                    DetalleFacturaResponseDTO dto = new DetalleFacturaResponseDTO();
+                    dto.setId(detalle.getId());
+                    dto.setProductoId(detalle.getProducto().getId());
+                    dto.setNombreProducto(detalle.getProducto().getNombre());
+                    dto.setCantidad(detalle.getCantidad());
+                    dto.setPrecioUnitario(detalle.getPrecioUnitario());
+                    dto.setSubtotal(detalle.getSubtotal());
+                return dto;
+
+                })
+                .toList();
+
+        respuesta.setDetalles(detallesResponse);
 
         return respuesta;
     }
