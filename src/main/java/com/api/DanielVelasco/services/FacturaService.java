@@ -96,16 +96,11 @@ public class FacturaService {
 
         List<DetalleFactura> detalles = new ArrayList<>();
         for (DetalleFacturaRequestDTO detalleRequest : factura.getDetalles()) {
-
             DetalleFactura detalle = detalleFacturaService.crearDetalle(detalleRequest);
-
             detalle.setFactura(facturaNueva);
-
             detalles.add(detalle);
-
             total = total.add(detalle.getSubtotal());
         }
-
         facturaNueva.setDetalles(detalles);
         facturaNueva.setTotal(total);
         //Guardar
@@ -129,13 +124,12 @@ public class FacturaService {
                     dto.setCantidad(detalle.getCantidad());
                     dto.setPrecioUnitario(detalle.getPrecioUnitario());
                     dto.setSubtotal(detalle.getSubtotal());
+                    dto.setDescripcion(detalle.getDescripcion());
                 return dto;
 
                 })
                 .toList();
-
         respuesta.setDetalles(detallesResponse);
-
         return respuesta;
     }
 

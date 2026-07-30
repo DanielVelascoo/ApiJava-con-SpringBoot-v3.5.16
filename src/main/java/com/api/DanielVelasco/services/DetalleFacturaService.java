@@ -39,7 +39,7 @@ public class DetalleFacturaService {
         detalle.setCantidad(detalles.getCantidad());
         detalle.setPrecioUnitario(precioUnitario);
         detalle.setSubtotal(subtotal);
-        detalle.setDescripcion(producto.getNombre());
+        detalle.setDescripcion(detalles.getDescripcion());
 
         return detalle;
 
