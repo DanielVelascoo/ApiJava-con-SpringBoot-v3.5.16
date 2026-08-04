@@ -1,6 +1,6 @@
 package com.api.DanielVelasco.services;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -9,6 +9,7 @@ import com.api.DanielVelasco.dto.ProductoResponseDTO;
 import com.api.DanielVelasco.entities.Categoria;
 import com.api.DanielVelasco.entities.Producto;
 import com.api.DanielVelasco.exceptions.ResourceNotFoundException;
+import com.api.DanielVelasco.mapper.ProductoMapper;
 import com.api.DanielVelasco.repositories.CategoriaRepository;
 import com.api.DanielVelasco.repositories.ProductoRepository;
 import org.springframework.stereotype.Service;
@@ -26,82 +27,45 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final ProductoMapper productoMapper;
 
-
+    //Mejoramos el método con menos lineas de código para que sea más limpio
     public List<ProductoResponseDTO> obtener() {
-        //Creación de la Lista en productos
-        List<Producto> productos = productoRepository.findAll();
-        //Creación del Array todo queda en la variable de respeusta
-        List<ProductoResponseDTO> respuesta = new ArrayList<>();
-        //Recorremos o iteramos los objetos para llenar el Array
-        for (Producto producto : productos) {
-
-            ProductoResponseDTO datos = new ProductoResponseDTO();
-            //Pasamos los datos al dto
-            datos.setId(producto.getId());
-            datos.setNombre(producto.getNombre());
-            //Adccionamos los datos a respuesta
-            respuesta.add(datos);
-        }
-        //Retornamos la respuesta que este caso es el array con los objetos
-        return respuesta;
+        return productoMapper.toDTOList(productoRepository.findAll());
     }
 
+    //Con el mapper se simplifica más el código y es más facil de implementar
     public ProductoResponseDTO obtenerProductoById(Long id) {
         //Instanciamos el prodcuto por ID y se almacena en la variable producto
         Producto producto = productoRepository.findById(id)
                 //Creamos el mensaje en caso de que no exista el producto
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
-
-        //Se hace el Objeto del dto
-        ProductoResponseDTO dto = new ProductoResponseDTO();
-        //Se le instancian datos
-        dto.setId(producto.getId());
-        dto.setNombre(producto.getNombre());
-        //Se retorna el dto para mostrar los datos
-        return dto;
-
+        return productoMapper.toDTO(producto);
     }
 
+    //Acá usamos el método de toDTOList, la busqueda a la Entidad devuelve una List
     public List<ProductoResponseDTO> buscarPorCategoria(Long categoriaId) {
         List<Producto> productos = productoRepository.findByCategoriaId(categoriaId);
         if (productos.isEmpty()) {
             throw new ResourceNotFoundException("Categoria no encontrada");
-        }else {
-            return productos.stream()
-                    .map(producto -> new ProductoResponseDTO(
-                            producto.getId(),
-                            producto.getNombre(),
-                            producto.getCategoria().getId(),
-                            producto.getCategoria().getNombre()
-                    ))
-                    .toList();
         }
-
+        return productoMapper.toDTOList(productos);
     }
 
+    //Para crear es más sencillo y escalable el código
     public ProductoResponseDTO crear(ProductoRequestDTO producto) {
         // Buscar la categoría
         Categoria categoria = categoriaRepository.findById(producto.getCategoriaId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Categoría no encontrada con id: " + producto.getCategoriaId()));
-        //CReación de la Entidad
-        Producto productonuevo = new Producto();
-
-        //Pasar los datos del DTO a la entidad
-        productonuevo.setNombre(producto.getNombre());
-        productonuevo.setDescripcion(producto.getDescripcion());
-        productonuevo.setPrecio(producto.getPrecio());
-        productonuevo.setStock(producto.getStock());
-        productonuevo.setCategoria(categoria);
-        //Guardar
-        Producto productoGuardado = productoRepository.save(productonuevo);
-
-        //Creación de la respuesta
-        ProductoResponseDTO respuesta = new ProductoResponseDTO();
-        respuesta.setId(productoGuardado.getId());
-        respuesta.setNombre(productoGuardado.getNombre());
-        return respuesta;
+        // Convierte el DTO a entidad
+        Producto productoNuevo = productoMapper.toEntity(producto);
+        // Asigna la relación manualmente
+        productoNuevo.setCategoria(categoria);
+        // Guarda
+        Producto productoGuardado = productoRepository.save(productoNuevo);
+        // Convierte la entidad guardada a DTO de respuesta
+        return productoMapper.toDTO(productoGuardado);
     }
 
     public ProductoResponseDTO update(Long id, ProductoRequestDTO detalleProducto) {
