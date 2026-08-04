@@ -18,5 +18,11 @@ public interface FacturaMapper {
 
     List<FacturaResponseDTO> toDTOList(List<Factura> facturas);
 
+    //¿Por qué ignorar cliente?
+    //Porque LA responsabilidad ya existe aquí:
+    //Cliente cliente = clienteRepository.findById(factura.getClienteId())
+    //y después:
+    //facturaNueva.setCliente(cliente);
+    @Mapping(target = "cliente", ignore = true)
     Factura toEntity(FacturaRequestDTO dto);
 }

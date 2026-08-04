@@ -12,10 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class FacturaRequestDTO {
 
-//    @NotNull(message = "El total es obligatorio")
-//    @DecimalMin(value = "0.0", inclusive = false, message = "El total debe ser mayor a 0")
-//    private BigDecimal total;
-
     @NotNull(message = "El cliente es obligatorio")
     private Long clienteId;
 
