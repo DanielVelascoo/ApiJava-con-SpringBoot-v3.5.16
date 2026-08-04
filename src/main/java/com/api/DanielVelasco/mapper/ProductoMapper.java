@@ -16,7 +16,6 @@ public interface ProductoMapper {
     @Mapping(source = "categoria.nombre", target = "nombreCategoria")
     ProductoResponseDTO toDTO(Producto producto);
 
-
     List<ProductoResponseDTO> toDTOList(List<Producto> productos);
 
     Producto toEntity(ProductoRequestDTO dto);
