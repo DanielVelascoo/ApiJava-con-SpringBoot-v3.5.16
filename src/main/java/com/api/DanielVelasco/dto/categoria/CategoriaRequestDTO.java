@@ -1,4 +1,4 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.categoria;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

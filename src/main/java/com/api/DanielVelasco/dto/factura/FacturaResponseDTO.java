@@ -1,5 +1,6 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.factura;
 
+import com.api.DanielVelasco.dto.detallefactura.DetalleFacturaResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

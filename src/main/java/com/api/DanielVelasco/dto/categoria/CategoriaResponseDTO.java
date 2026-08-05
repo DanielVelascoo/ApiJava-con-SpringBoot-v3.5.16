@@ -1,4 +1,4 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.categoria;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductoResponseDTO {
+public class CategoriaResponseDTO {
     private Long id;
     private String nombre;
-    private Long categoriaId;
-    private String nombreCategoria;
 }

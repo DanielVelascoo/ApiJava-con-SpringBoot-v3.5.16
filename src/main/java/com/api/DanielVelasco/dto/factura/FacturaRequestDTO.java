@@ -1,10 +1,10 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.factura;
+import com.api.DanielVelasco.dto.detallefactura.DetalleFacturaRequestDTO;
 import jakarta.validation.constraints.*;//Importación de Jakarta para Validaciones
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data

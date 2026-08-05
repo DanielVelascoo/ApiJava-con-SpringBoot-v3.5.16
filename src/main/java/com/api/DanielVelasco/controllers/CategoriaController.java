@@ -1,7 +1,7 @@
 package com.api.DanielVelasco.controllers;
 
-import com.api.DanielVelasco.dto.CategoriaRequestDTO;
-import com.api.DanielVelasco.dto.CategoriaResponseDTO;
+import com.api.DanielVelasco.dto.categoria.CategoriaRequestDTO;
+import com.api.DanielVelasco.dto.categoria.CategoriaResponseDTO;
 import com.api.DanielVelasco.services.CategoriaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

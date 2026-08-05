@@ -1,7 +1,7 @@
 package com.api.DanielVelasco.mapper;
 
-import com.api.DanielVelasco.dto.ProductoRequestDTO;
-import com.api.DanielVelasco.dto.ProductoResponseDTO;
+import com.api.DanielVelasco.dto.producto.ProductoRequestDTO;
+import com.api.DanielVelasco.dto.producto.ProductoResponseDTO;
 import com.api.DanielVelasco.entities.Producto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,4 +1,4 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.cliente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

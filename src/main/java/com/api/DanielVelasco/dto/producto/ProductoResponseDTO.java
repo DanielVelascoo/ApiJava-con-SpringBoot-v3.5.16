@@ -1,5 +1,4 @@
-package com.api.DanielVelasco.dto;
-
+package com.api.DanielVelasco.dto.producto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteResponseDTO {
+public class ProductoResponseDTO {
     private Long id;
     private String nombre;
-    private String email;
-    private String celular;
+    private Long categoriaId;
+    private String nombreCategoria;
 }

@@ -1,9 +1,8 @@
 package com.api.DanielVelasco.services;
 
-import com.api.DanielVelasco.dto.DetalleFacturaRequestDTO;
-import com.api.DanielVelasco.dto.DetalleFacturaResponseDTO;
-import com.api.DanielVelasco.dto.FacturaRequestDTO;
-import com.api.DanielVelasco.dto.FacturaResponseDTO;
+import com.api.DanielVelasco.dto.detallefactura.DetalleFacturaRequestDTO;
+import com.api.DanielVelasco.dto.factura.FacturaRequestDTO;
+import com.api.DanielVelasco.dto.factura.FacturaResponseDTO;
 import com.api.DanielVelasco.entities.Cliente;
 import com.api.DanielVelasco.entities.DetalleFactura;
 import com.api.DanielVelasco.entities.Factura;
@@ -35,10 +34,8 @@ public class FacturaService {
     }
 
     public FacturaResponseDTO obtenerFactura(Long id) {
-
         Factura factura = facturaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Factura no encontrada"));
-
         return facturaMapper.toDTO(factura);
     }
 

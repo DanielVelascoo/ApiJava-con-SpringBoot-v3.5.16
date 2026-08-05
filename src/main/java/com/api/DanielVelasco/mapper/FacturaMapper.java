@@ -1,8 +1,8 @@
 package com.api.DanielVelasco.mapper;
 
 
-import com.api.DanielVelasco.dto.FacturaRequestDTO;
-import com.api.DanielVelasco.dto.FacturaResponseDTO;
+import com.api.DanielVelasco.dto.factura.FacturaRequestDTO;
+import com.api.DanielVelasco.dto.factura.FacturaResponseDTO;
 import com.api.DanielVelasco.entities.Factura;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

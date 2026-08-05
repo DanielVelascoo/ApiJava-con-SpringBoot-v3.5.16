@@ -1,9 +1,7 @@
 package com.api.DanielVelasco.controllers;
 
-import com.api.DanielVelasco.dto.ClienteRequestDTO;
-import com.api.DanielVelasco.dto.ClienteResponseDTO;
-import com.api.DanielVelasco.dto.FacturaRequestDTO;
-import com.api.DanielVelasco.dto.FacturaResponseDTO;
+import com.api.DanielVelasco.dto.factura.FacturaRequestDTO;
+import com.api.DanielVelasco.dto.factura.FacturaResponseDTO;
 import com.api.DanielVelasco.services.FacturaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

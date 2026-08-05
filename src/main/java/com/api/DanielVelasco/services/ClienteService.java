@@ -1,7 +1,7 @@
 package com.api.DanielVelasco.services;
 
-import com.api.DanielVelasco.dto.ClienteRequestDTO;
-import com.api.DanielVelasco.dto.ClienteResponseDTO;
+import com.api.DanielVelasco.dto.cliente.ClienteRequestDTO;
+import com.api.DanielVelasco.dto.cliente.ClienteResponseDTO;
 import com.api.DanielVelasco.entities.Cliente;
 import com.api.DanielVelasco.exceptions.ResourceNotFoundException;
 import com.api.DanielVelasco.repositories.ClienteRepository;

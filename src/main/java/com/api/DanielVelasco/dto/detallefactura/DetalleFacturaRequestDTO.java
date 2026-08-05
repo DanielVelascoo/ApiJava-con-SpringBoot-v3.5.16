@@ -1,4 +1,4 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.detallefactura;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;

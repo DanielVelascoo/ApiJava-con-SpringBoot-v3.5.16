@@ -1,7 +1,6 @@
 package com.api.DanielVelasco.services;
 
-import com.api.DanielVelasco.dto.DetalleFacturaRequestDTO;
-import com.api.DanielVelasco.dto.DetalleFacturaResponseDTO;
+import com.api.DanielVelasco.dto.detallefactura.DetalleFacturaRequestDTO;
 import com.api.DanielVelasco.entities.DetalleFactura;
 import com.api.DanielVelasco.entities.Producto;
 import com.api.DanielVelasco.exceptions.ResourceNotFoundException;

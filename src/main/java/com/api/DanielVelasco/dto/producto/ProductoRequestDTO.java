@@ -1,4 +1,4 @@
-package com.api.DanielVelasco.dto;
+package com.api.DanielVelasco.dto.producto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

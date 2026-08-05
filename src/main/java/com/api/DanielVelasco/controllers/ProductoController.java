@@ -1,9 +1,8 @@
 package com.api.DanielVelasco.controllers;
 import java.util.List;
 
-import com.api.DanielVelasco.dto.ProductoRequestDTO;
-import com.api.DanielVelasco.dto.ProductoResponseDTO;
-import com.api.DanielVelasco.entities.Producto;
+import com.api.DanielVelasco.dto.producto.ProductoRequestDTO;
+import com.api.DanielVelasco.dto.producto.ProductoResponseDTO;
 import com.api.DanielVelasco.services.ProductoService;
 
 import jakarta.validation.Valid;
